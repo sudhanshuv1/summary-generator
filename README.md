@@ -29,7 +29,7 @@ Create a storage bucket and processor with the Document AI API.
 
 6. Create a `.env.local` file and create the relevant environment variables form Google Cloud, Github, MongoDB, and NextAuth. Set `HOMEPAGE_URL` to `http://localhost:3000`.
 
-7. Run the development server:
+7. Run the development server using:
 
 ```bash
 npm run dev
