@@ -51,16 +51,16 @@ const Summary = () => {
       body: formData,
     });
 
-    if (!response.ok) {
-      throw new Error(`Failed to upload file: ${response.statusText}`);
+    const data = await response.json();
+    if (data.status != 200) {
+      throw new Error(`Failed to upload file: ${data.errorMessage}`);
     }
 
-    const data = await response.json();
     if (!data.filePath) {
       throw new Error('No file path returned after upload.');
     }
 
-    console.log('File uploaded successfully:', data.filePath);
+    //  console.log('File uploaded successfully:', data.filePath);
     return data.filePath;
   };
 
@@ -74,15 +74,16 @@ const Summary = () => {
       body: JSON.stringify({ filePath }),
     });
 
-    if (!extractResponse.ok) {
-      throw new Error(`Failed to extract text: ${extractResponse.statusText}`);
+    const extractData = await extractResponse.json();
+
+    if (extractData.status != 200) {
+      throw new Error(`Failed to extract text: ${extractData.errorMessage}`);
     }
 
-    const extractData = await extractResponse.json();
-    console.log('Extracted text:', extractData.extractedText);
+    // console.log('Extracted text:', extractData.extractedText);
 
     setLoadingText('Generating Summary...');
-    // Fetch the summary
+
     const summaryResponse = await fetch('/api/summarize', {
       method: 'POST',
       headers: {
@@ -91,11 +92,12 @@ const Summary = () => {
       body: JSON.stringify({ text: extractData.extractedText, length: summaryLength }),
     });
 
-    if (!summaryResponse.ok) {
-      throw new Error(`Failed to summarize text: ${summaryResponse.statusText}`);
+    const summaryData = await summaryResponse.json();
+
+    if (summaryData.status != 200) {
+      throw new Error(`Failed to summarize text: ${summaryData.errorMessage}`);
     }
 
-    const summaryData = await summaryResponse.json();
     setSummary(summaryData.summary);
   };
 

@@ -8,13 +8,13 @@ export async function POST(req: NextRequest) {
     const { text, length } = await req.json();
 
     if (!text) {
-      return NextResponse.json({ error: 'No text provided' }, { status: 400 });
+      return NextResponse.json({ errorMessage: 'No text provided' }, { status: 400 });
     }
 
     const client = getGCPCredentials();
     const projectId = process.env.GOOGLE_CLOUD_PROJECT_ID;
     if (!projectId) {
-      return NextResponse.json({ error: 'Google Cloud project ID is not defined' }, { status: 500 });
+      return NextResponse.json({ errorMessage: 'Google Cloud project ID is not defined' }, { status: 500 });
     }
 
     const vertexAI = new VertexAI(
@@ -42,6 +42,6 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error('Error summarizing text:', error);
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-    return NextResponse.json({ error: errorMessage }, { status: 500 });
+    return NextResponse.json({ errorMessage: errorMessage }, { status: 500 });
   }
 }

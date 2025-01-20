@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
   const { filePath } = await req.json();
 
   if (!filePath) {
-    return NextResponse.json({ error: 'No file path provided' }, { status: 400 });
+    return NextResponse.json({ errorMessage: 'No file path provided' }, { status: 400 });
   }
 
   try {
@@ -58,11 +58,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ extractedText }, { status: 200 });
     } else {
       await fs.unlink(tempFilePath);
-      return NextResponse.json({ error: 'Unsupported file type' }, { status: 400 });
+      return NextResponse.json({ errorMessage: 'Unsupported file type' }, { status: 400 });
     }
   } catch (error) {
     console.error('Error processing document:', error);
     const errorMessage = (error as Error).message;
-    return NextResponse.json({ error: `Error processing document: ${errorMessage}` }, { status: 500 });
+    return NextResponse.json({ errorMessage: `Error processing document: ${errorMessage}` }, { status: 500 });
   }
 }

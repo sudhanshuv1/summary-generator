@@ -14,14 +14,14 @@ export const config = {
 
 export async function POST(request: NextRequest) {
   if (request.method !== 'POST') {
-    return NextResponse.json({ error: 'Method Not Allowed' }, { status: 405 });
+    return NextResponse.json({ errorMessage: 'Method Not Allowed' }, { status: 405 });
   }
 
   const formData = await request.formData();
   const file = formData.get('file') as File;
 
   if (!file) {
-    return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
+    return NextResponse.json({ errorMessage: 'No file uploaded' }, { status: 400 });
   }
 
   try {
@@ -42,6 +42,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ filePath: publicUrl }, { status: 200 });
   } catch (error) {
     console.error('Error uploading file to Google Cloud Storage:', error);
-    return NextResponse.json({ error: 'Error uploading file to Google Cloud Storage' }, { status: 500 });
+    return NextResponse.json({ errorMessage: 'Error uploading file to Google Cloud Storage' }, { status: 500 });
   }
 }
