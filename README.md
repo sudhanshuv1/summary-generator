@@ -1,8 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Summary Assistant
+
+This is a [Next.js](https://nextjs.org) app that takes any document (PDF/Image) and generates smart summaries.
 
 ## Getting Started
+Here are the steps to run this project on local development environment :
 
-First, run the development server:
+1. Clone the project and run:
+
+```bash
+cd summary-generator 
+npm install
+```
+
+2. Sign in to [Google Cloud Platform](https://cloud.google.com/?hl=en) and create a project in the console. Enable these APIs and services in the project:
+
+- Cloud Storage
+- Cloud Storage API
+- Cloud Document AI API
+- Vertex AI API
+
+Create a storage bucket and processor with the Document AI API.
+
+3. Install the `gcloud` CLI and set up [Application Default Credentials](https://cloud.google.com/sdk/docs/install).
+
+4. Create an OAuth app on Github, with the homepage URL set to `http://localhost:3000/dashboard` and the callback URL set to `http://localhost:3000/api/auth/callback/github`.
+
+5. Create a MongoDB collection and copy the connection string.
+
+6. Create a `.env.local` file and create the relevant environment variables form Google Cloud, Github, MongoDB, and NextAuth. Set `HOMEPAGE_URL` to `http://localhost:3000`.
+
+7. Run the development server:
 
 ```bash
 npm run dev
@@ -14,23 +41,11 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Approach
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This project uploads the files to Google Cloud Storage, uses the [Cloud Document AI API](https://cloud.google.com/document-ai/docs/reference/rest) to extract text from the PDF or Image file, and then sends a prompt to Gemini via the [Vertex AI API](https://cloud.google.com/vertex-ai/docs/reference/rest) to summarize the extracted text. NextAuth enables authentication with github or credentials that are stored in MongoDB. 
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+## Deployed on Vercel
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is deployed on Vercel: [https://summary-generator-beryl.vercel.app/](https://summary-generator-beryl.vercel.app/)
