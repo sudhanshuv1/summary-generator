@@ -11,9 +11,11 @@ interface MongooseCache {
   promise: Promise<typeof mongoose> | null;
 }
 
-declare global {
-  let mongoose: MongooseCache;
+interface GlobalWithMongoose extends globalThis.Global {
+  mongoose: MongooseCache;
 }
+
+declare const global: GlobalWithMongoose;
 
 let cached = global.mongoose;
 
@@ -27,9 +29,9 @@ async function dbConnect() {
   }
 
   if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGO_URI as string, {}).then((mongoose) => {
+    cached.promise = mongoose.connect(MONGO_URI as string, {}).then((mongooseInstance) => {
       return mongoose;
-    }).catch((error) => {
+    }).catch((error: any) => {
       cached.promise = null; // Reset the promise cache on error
       throw new Error(`Error connecting to database: ${error}`);
     });
