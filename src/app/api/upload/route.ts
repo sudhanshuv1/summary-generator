@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
   if (request.method !== 'POST') {
     return NextResponse.json({ errorMessage: 'Method Not Allowed' }, { status: 405 });
   }
+  console.log('Uploading file to Google Cloud Storage...');
 
   const formData = await request.formData();
   const file = formData.get('file') as File;
@@ -24,6 +25,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ errorMessage: 'No file uploaded' }, { status: 400 });
   }
 
+  console.log('File uploaded:', file.name);
   try {
     const uniqueFileName = `${uuidv4()}-${file.name}`;
 
@@ -31,6 +33,7 @@ export async function POST(request: NextRequest) {
 
     const buffer = Buffer.from(await file.arrayBuffer());
     fileStream.end(buffer);
+    console.log('INside try catch');
 
     await new Promise((resolve, reject) => {
       fileStream.on('finish', resolve);
@@ -38,6 +41,7 @@ export async function POST(request: NextRequest) {
     });
 
     const publicUrl = `https://storage.googleapis.com/${bucketName}/${uniqueFileName}`;
+    console.log('File uploaded successfully:', publicUrl);
 
     return NextResponse.json({ filePath: publicUrl }, { status: 200 });
   } catch (error) {

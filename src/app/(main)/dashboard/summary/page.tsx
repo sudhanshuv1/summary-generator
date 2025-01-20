@@ -52,7 +52,9 @@ const Summary = () => {
     });
 
     const data = await response.json();
-    if (data.status != 200) {
+    console.log("Data: " , data);
+    console.log("Data Status: " , response.status); 
+    if (response.status != 200) {
       throw new Error(`Failed to upload file: ${data.errorMessage}`);
     }
 
@@ -76,7 +78,7 @@ const Summary = () => {
 
     const extractData = await extractResponse.json();
 
-    if (extractData.status != 200) {
+    if (extractResponse.status != 200) {
       throw new Error(`Failed to extract text: ${extractData.errorMessage}`);
     }
 
@@ -94,7 +96,7 @@ const Summary = () => {
 
     const summaryData = await summaryResponse.json();
 
-    if (summaryData.status != 200) {
+    if (summaryResponse.status != 200) {
       throw new Error(`Failed to summarize text: ${summaryData.errorMessage}`);
     }
 
