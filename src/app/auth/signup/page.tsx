@@ -23,8 +23,8 @@ export default function Page() {
       body: JSON.stringify({email, name, password}),
       headers: {'Content-Type': 'application/json'},
     });
-    if (!response.ok) {
-      setError(response.statusText);
+    if (response.status != 200) {
+      setError(`Error: ${response.statusText}`);
     }
     else {
       // Sign In automatically
@@ -46,7 +46,7 @@ export default function Page() {
   return (
       <>
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-700">Sign Up</h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <div className="mb-4 text-gray-700">
             <label htmlFor="email" className="block text-sm font-medium">Email Address</label>
             <input
