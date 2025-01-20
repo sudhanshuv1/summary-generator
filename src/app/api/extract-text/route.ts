@@ -5,9 +5,10 @@ import fs from 'fs/promises';
 import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 import { fileTypeFromBuffer } from 'file-type';
+import { getGCPCredentials } from '@/lib/utils';
 
-const storage = new Storage();
-const client = new DocumentProcessorServiceClient();
+const storage = new Storage(getGCPCredentials());
+const client = new DocumentProcessorServiceClient(getGCPCredentials());
 const bucketName = process.env.GOOGLE_CLOUD_BUCKET || '';
 
 export async function POST(req: NextRequest) {

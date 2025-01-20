@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Storage } from '@google-cloud/storage';
 import { v4 as uuidv4 } from 'uuid';
+import { getGCPCredentials } from '@/lib/utils';
 
-const storage = new Storage();
+const storage = new Storage(getGCPCredentials());
 const bucketName = process.env.GOOGLE_CLOUD_BUCKET || ''; 
 
 export const config = {
