@@ -1,8 +1,9 @@
 import { User } from "@/models/User";
 import bcrypt from "bcrypt";
 import dbConnect from "@/lib/dbConnect";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const body = await req.json();
 
   const email = body.email;
@@ -10,17 +11,17 @@ export async function POST(req: Request) {
   try {
     await dbConnect();
   } catch (error) {
-    return new Response(null, { status: 500, statusText: `${error}` });
+    return NextResponse.json({ errorMessage: error } , { status: 500 });
   }
 
   const emailExists = await User.findOne({ email });
   if (emailExists) {
-    return new Response(null, { status: 400, statusText: 'Email already exists' });
+    return NextResponse.json({ errorMessage: 'Email already exists' }, { status: 400 });
   }
 
   const pass = body.password;
   if (!pass?.length || pass.length < 5) {
-    new Error('password must be at least 5 characters');
+    return NextResponse.json({ errorMessage: 'Password must be at least 5 characters long' }, { status: 400 });
   }
 
 
@@ -29,5 +30,5 @@ export async function POST(req: Request) {
   body.password = bcrypt.hashSync(notHashedPassword, salt);
 
   const createdUser = await User.create(body);
-  return Response.json(createdUser);
+  return NextResponse.json({ user: createdUser }, { status: 200 });
 }

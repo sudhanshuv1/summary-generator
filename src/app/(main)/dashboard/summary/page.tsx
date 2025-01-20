@@ -17,7 +17,7 @@ const Summary = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const handleFileUploadAndExtractText = async () => {
+    const handleGenerateSummary = async () => {
       if (!file) {
         setError('No file selected');
         setLoading(false);
@@ -35,8 +35,7 @@ const Summary = () => {
       }
     };
 
-    handleFileUploadAndExtractText();
-
+    handleGenerateSummary();
     return () => {
       setSummary('');
     };

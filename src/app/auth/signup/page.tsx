@@ -24,7 +24,8 @@ export default function Page() {
       headers: {'Content-Type': 'application/json'},
     });
     if (response.status != 200) {
-      setError(`Error: ${response.statusText}`);
+      const errorData = await response.json();
+      setError(`Error: ${errorData.errorMessage}`);
     }
     else {
       // Sign In automatically
