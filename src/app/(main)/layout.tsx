@@ -1,5 +1,6 @@
 import { SummaryProvider } from "@/context/SummaryProvider"
 import { AuthButtons } from "@/components/AuthButtons"
+import Link from "next/link"
 
 export const metadata = {
   title: 'Dashboard',
@@ -15,7 +16,9 @@ export default function RootLayout({
     <SummaryProvider>
       <header className="bg-blue-600 text-white p-4 md:hidden">
         <nav className="container mx-auto flex flex-row justify-between items-center">
-          <a className="text-2xl font-bold mb-4 sm:mb-0" href="/">Summary Generator</a>
+          <Link className="text-2xl font-bold mb-4 sm:mb-0" href="/">
+            Summary Generator
+          </Link>
           <div className="space-x-4 flex">
             <AuthButtons />
           </div>

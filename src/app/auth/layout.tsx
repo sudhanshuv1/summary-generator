@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "../globals.css";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Summary Generator",
@@ -24,7 +25,9 @@ export default function AuthLayout({
       }}
     >
       <div className="absolute inset-0 z-20 bg-black opacity-50"></div>
-      <p className="text-lg z-30 ml-3 mr-auto hover:underline"><a href="/">Back to Home</a></p>
+      <Link className="text-lg z-30 ml-3 mr-auto hover:underline" href="/">
+        Back to Home
+      </Link>
       <div className="w-full max-w-md z-30 bg-white p-8 z- rounded-lg shadow-md m-auto">
         {children}
       </div>

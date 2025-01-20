@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { signIn } from 'next-auth/react';
 
-export default function page() {
+export default function Page() {
 
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');

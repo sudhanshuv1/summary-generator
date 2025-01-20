@@ -1,22 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import AuthProvider from "../context/AuthProvider";
 import { AuthButtons } from "../components/AuthButtons";
+import Link from "next/link";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Summary Generator",
-  description: "",
+  description: "An application that takes any document (PDF/Image) and generates smart summaries.",
 };
 
 export default function RootLayout({
@@ -30,7 +20,9 @@ export default function RootLayout({
         <body className="flex flex-col min-h-screen w-[100vw]">
           <header className="bg-blue-600 text-white p-4 hidden md:block">
             <nav className="container mx-auto flex flex-col sm:flex-row justify-between items-center">
-              <a className="text-2xl font-bold mb-4 sm:mb-0" href="/">Summary Generator</a>
+              <Link className="text-2xl font-bold mb-4 sm:mb-0" href="/">
+                Summary Generator
+              </Link>
               <div className="space-x-4 flex">
                 <AuthButtons />
               </div>
