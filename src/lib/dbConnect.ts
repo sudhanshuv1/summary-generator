@@ -29,9 +29,9 @@ async function dbConnect() {
   }
 
   if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGO_URI as string, {}).then((mongooseInstance) => {
+    cached.promise = mongoose.connect(MONGO_URI as string, {}).then(() => {
       return mongoose;
-    }).catch((error: any) => {
+    }).catch((error: Error) => {
       cached.promise = null; // Reset the promise cache on error
       throw new Error(`Error connecting to database: ${error}`);
     });
