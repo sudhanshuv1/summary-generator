@@ -138,7 +138,7 @@ const Summary = () => {
       {summary && (
         <>
           <h1 className="text-2xl text-white font-bold mt-4 text-center">{`Summary of ${file?.name}`}</h1>
-          <div className="relative mt-4 w-5/6 md:w-4/6 p-5 border-0 bg-gray-100 text-gray-700 rounded-xl max-h-[60vh] overflow-y-scroll">
+          <div className="relative mt-4 w-[90vw] md:w-4/6 p-5 border-0 bg-gray-100 text-gray-700 rounded-xl max-h-[60vh] overflow-y-scroll">
             <div className="absolute top-1 right-1">
               <button onClick={handleCopy} className="text-gray-500 hover:text-gray-400 hover:cursor-pointer">
                 <FiCopy size={24} />
