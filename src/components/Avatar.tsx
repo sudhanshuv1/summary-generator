@@ -8,9 +8,9 @@ interface AvatarProps {
 const Avatar: React.FC<AvatarProps> = ({ letter } ) => {
   return (
     <div
-      className="flex items-center justify-center w-10 h-10 rounded-full bg-fuchsia-900"
+      className="flex items-center justify-center text-lg font-bold w-10 h-10 rounded-full bg-fuchsia-900"
     >
-      <span className="text-white text-lg font-bold">{letter.toLocaleUpperCase()}</span>
+      <span className="text-white">{letter.toLocaleUpperCase()}</span>
     </div>
   );
 };
