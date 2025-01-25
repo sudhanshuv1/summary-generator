@@ -30,7 +30,7 @@ export default function Home() {
   }
 
   return (
-    <main className="relative flex flex-col min-w-screen justify-center flex-grow container mx-auto p-4 text-center"
+    <main className="relative flex flex-col min-w-[100vw] justify-center flex-grow container mx-auto p-4 text-center"
       style={{
         backgroundImage: 'url(/background.jpg)',
         backgroundSize: 'cover',

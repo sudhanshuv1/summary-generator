@@ -16,7 +16,7 @@ export default function AuthLayout({
 }) {
   return (
     <main 
-      className="relative flex flex-col justify-center z-10 flex-grow container mx-auto p-4 text-center max-h-[100vh]"
+      className="relative flex flex-col justify-center z-10 min-w-[100vw] flex-grow container mx-auto p-4 text-center max-h-[100vh]"
       style={{
         backgroundImage: 'url(/background.jpg)',
         backgroundSize: 'cover',

@@ -24,7 +24,7 @@ export default function RootLayout({
           </div>
         </nav>
       </header>
-      <main className="flex flex-col justify-center flex-grow container mx-auto p-4 items-center bg-[#2a2a42]">
+      <main className="flex flex-col min-w-[100vw] justify-center flex-grow container mx-auto p-4 items-center bg-[#2a2a42]">
         {children}
       </main>
       <footer className="md:hidden bg-blue-600 text-white p-4">
