@@ -28,7 +28,7 @@ export default function AuthLayout({
       <Link className="text-lg text-white z-30 ml-3 mr-auto hover:underline" href="/">
         Back to Home
       </Link>
-      <div className="w-full max-w-md z-30 bg-white p-8 z- rounded-lg shadow-md m-auto">
+      <div className="w-full max-w-md z-30 bg-white p-8 rounded-lg shadow-md m-auto">
         {children}
       </div>
       <p className="text-white text-sm mt-4 md:hidden absolute bottom-4 left-1/2 transform -translate-x-1/2">

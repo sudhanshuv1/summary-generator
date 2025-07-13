@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
       });
 
     const generativeModel = vertexAI.getGenerativeModel({
-      model: 'gemini-1.5-flash-001',
+      model: 'gemini-2.5-flash',
     });
 
     const prompt = `Summarize the following text in ${length} words: ${text}.Highlight key points and main ideas, ensuring the summary captures essential information.`;
