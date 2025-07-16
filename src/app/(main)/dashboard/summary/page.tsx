@@ -39,7 +39,7 @@ const Summary = () => {
     return () => {
       setSummary('');
     };
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleFileUpload = async (file: File): Promise<string> => {
@@ -103,7 +103,7 @@ const Summary = () => {
     let summaryData;
     try {
       summaryData = await summaryResponse.json();
-    } catch (jsonError) {
+    } catch {
       throw new Error('Failed to parse server response. The request may have timed out. Please try with a shorter summary length.');
     }
 

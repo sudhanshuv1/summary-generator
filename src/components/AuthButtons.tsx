@@ -2,6 +2,7 @@
 
 import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Avatar from './Avatar';
 
 const homepageUrl = process.env.HOMEPAGE_URL;
@@ -33,9 +34,11 @@ export const AuthButtons = () => {
   return (
     <div className="flex items-center space-x-4">
       {session.user?.image ? (
-        <img
+        <Image
           src={session.user.image}
           alt="User Avatar"
+          width={40}
+          height={40}
           className="block w-10 h-10 rounded-full"
         />
       ) : (
