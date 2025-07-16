@@ -30,18 +30,29 @@ export async function POST(req: NextRequest) {
       });
 
     const generativeModel = vertexAI.getGenerativeModel({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.5-flash', 
     });
 
-    const prompt = `Summarize the following text in ${length} words: ${text}.Highlight key points and main ideas, ensuring the summary captures essential information.`;
+    // Optimize prompt for faster generation
+    const prompt = `Provide a concise ${length}-word summary of the following text. Focus on the most important points:\n\n${text}`; 
 
     const resp = await generativeModel.generateContent(prompt);
+    console.log('Response from Vertex AI:', resp.response.candidates?.[0]);
     const summaryText = await marked.parse(resp.response.candidates?.[0]?.content?.parts?.[0]?.text ?? 'No summary available');
 
     return NextResponse.json({ summary: summaryText }, { status: 200 });
   } catch (error) {
     console.error('Error summarizing text:', error);
     const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
-    return NextResponse.json({ errorMessage: errorMessage }, { status: 500 });
+    
+    // Always return JSON, even on error
+    return NextResponse.json({ 
+      errorMessage: `Failed to summarize text: ${errorMessage}` 
+    }, { 
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
   }
 }

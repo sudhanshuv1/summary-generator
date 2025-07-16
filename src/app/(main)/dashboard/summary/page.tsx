@@ -71,7 +71,7 @@ const Summary = () => {
     const extractResponse = await fetch('/api/extract-text', {
       method: 'POST',
       headers: {
-        'Content-Type': 'applsetFile ication/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({ filePath }),
     });
@@ -82,7 +82,7 @@ const Summary = () => {
       throw new Error(`Failed to extract text: ${extractData.errorMessage}`);
     }
 
-    // console.log('Extracted text:', extractData.extractedText);
+    console.log('Extracted text:', extractData.extractedText);
 
     setLoadingText('Generating Summary...');
 
@@ -94,7 +94,18 @@ const Summary = () => {
       body: JSON.stringify({ text: extractData.extractedText, length: summaryLength }),
     });
 
-    const summaryData = await summaryResponse.json();
+    // Check if response is JSON
+    const contentType = summaryResponse.headers.get('content-type');
+    if (!contentType || !contentType.includes('application/json')) {
+      throw new Error('Server returned an invalid response. Please try with a shorter summary length.');
+    }
+
+    let summaryData;
+    try {
+      summaryData = await summaryResponse.json();
+    } catch (jsonError) {
+      throw new Error('Failed to parse server response. The request may have timed out. Please try with a shorter summary length.');
+    }
 
     if (summaryResponse.status != 200) {
       throw new Error(`Failed to summarize text: ${summaryData.errorMessage}`);
